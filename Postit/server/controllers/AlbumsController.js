@@ -1,4 +1,5 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
+import { albumMembersService } from "../services/AlbumMembersService";
 import { albumsService } from "../services/AlbumsService";
 import BaseController from "../utils/BaseController";
 
@@ -9,12 +10,14 @@ export class AlbumsController extends BaseController{
     this.router
       .get('', this.getAll)
       .get('/:id', this.getById)
+      .get('/:id/albumMembers', this.getAlbumMembers)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
 
   }
+ 
   async getAll(req, res, next) {
     try {
       const albums = await albumsService.getAll(req.query)
@@ -60,6 +63,13 @@ export class AlbumsController extends BaseController{
       next(error)
     }
   }
- 
+  getAlbumMembers(req, res, next) {
+    try {
+      const albumMembers = albumMembersService.getAlbumMembers(req.params.id)
+      return res.send(albumMembers)
+    } catch (error) {
+      next(error)
+    }
+  }
 
 }

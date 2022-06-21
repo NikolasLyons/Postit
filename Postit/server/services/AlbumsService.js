@@ -6,7 +6,7 @@ import { BadRequest, Forbidden } from "../utils/Errors"
 class AlbumsService{
   
   async getAll(query = {}) {
-    const albums = await dbContext.Albums.find(query)
+    const albums = await dbContext.Albums.find(query).populate('creator', 'name picture')
     return albums
   }
   async getById(id) {

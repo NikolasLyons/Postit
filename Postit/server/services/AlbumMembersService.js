@@ -2,6 +2,7 @@ import { dbContext } from "../db/DbContext"
 import { BadRequest, Forbidden } from "../utils/Errors"
 
 class AlbumMembersService{
+ 
 
  async create(albumMembersData) {
     const isCollaborating = await dbContext.AlbumMembers.create(albumMembersData)
@@ -26,6 +27,17 @@ class AlbumMembersService{
     }
     await albumMembers.remove()
   }
+  async getMyAlbumMembers(accountId) {
+   const albumMembers = await dbContext.AlbumMembers.find({accountId})
+   .populate('album')
+   return albumMembers
+  }
+  async getAlbumMembers(albumId) {
+    const albumMembers = await dbContext.AlbumMembers.find({albumId})
+    .populate('account', 'name picture')
+    return albumMembers
+  }
+  
 
 }
 export const albumMembersService = new AlbumMembersService()
