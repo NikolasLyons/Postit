@@ -1,9 +1,9 @@
 <template>
   <div class="component">
 <div class="row">
-  <div class="col-12" v-for="a in albums" :key="a.id" :albums="a">
-   <Album  />
-  </div>
+  
+   <Album v-for="a in albums" :key="a.id" :album="a"/>
+ 
 </div>
   </div>
 </template>

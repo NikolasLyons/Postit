@@ -12,3 +12,7 @@ export const AccountSchema = new Schema(
   { timestamps: true, toJSON: { virtuals: true } }
 )
 
+export const ProfileSchema = new Schema({
+  name:{type: String, required: true},
+  picture: { type: String,}
+},{timestamps: true, toJSON: {virtuals: true}})
