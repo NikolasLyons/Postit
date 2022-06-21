@@ -23,6 +23,7 @@ export class AlbumMembersController extends BaseController{
   async delete(req, res, next) {
     try {
       await albumMembersService.delete(req.params.id, req.userInfo.id)
+      return res.send('delete me ')
     } catch (error) {
       next(error)
     }
